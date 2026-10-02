@@ -14,6 +14,7 @@ import {
   Settings,
   Zap,
 } from 'lucide-react';
+import { useAuthStore } from '../stores/authStore';
 
 const navItems = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/' },
@@ -31,6 +32,8 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const { user } = useAuthStore();
+  
   return (
     <aside className="w-64 bg-gray-900 text-white flex flex-col h-screen fixed top-0 left-0 z-20">
       {/* Logo */}
@@ -66,11 +69,11 @@ export default function Sidebar() {
       <div className="px-6 py-4 border-t border-gray-700">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-sm font-bold">
-            H
+            {user?.full_name?.charAt(0).toUpperCase() || 'U'}
           </div>
           <div>
-            <p className="text-sm font-medium text-white">Hammad</p>
-            <p className="text-xs text-gray-400">Owner</p>
+            <p className="text-sm font-medium text-white truncate w-32">{user?.full_name || 'User'}</p>
+            <p className="text-xs text-gray-400 capitalize">{user?.role || 'Agent'}</p>
           </div>
         </div>
       </div>
